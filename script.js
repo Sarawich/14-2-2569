@@ -102,6 +102,7 @@ const finalSectionEl = document.getElementById("finalSection");
 const finalTitleEl = document.getElementById("finalTitle");
 const finalTextEl = document.getElementById("finalText");
 const finalGifEl = document.getElementById("finalGif");
+const finalDayNoteEl = document.getElementById("finalDayNote");
 const reactionGifEl = document.getElementById("reactionGif");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
@@ -145,11 +146,21 @@ function getCurrentPack() {
   return themePacks[currentTheme] || themePacks.sweet;
 }
 
+function buildFinalDayNote() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const isValentinesDay = today.getMonth() === 1 && today.getDate() === 14;
+  return isValentinesDay
+    ? `Happy Valentine's ${year}`
+    : `Happy Valentine's ${year} - with love`;
+}
+
 function applyProfileText() {
   heroTitleEl.textContent = profile.heroTitle;
   heroSubtitleEl.textContent = profile.heroSubtitle[currentTheme] || profile.heroSubtitle.sweet;
   questionTextEl.textContent = profile.questionText;
   finalTitleEl.textContent = "โอเค สรุปว่า ใช่";
+  finalDayNoteEl.textContent = buildFinalDayNote();
 }
 
 function applySongButtonTitles() {

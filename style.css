@@ -364,6 +364,17 @@ body[data-theme="playful"] .final-wrap h2 {
   box-shadow: 0 10px 24px rgba(31, 42, 68, 0.14);
 }
 
+.final-day-note {
+  margin: 2px 0 14px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: #a23b63;
+}
+
+body[data-theme="playful"] .final-day-note {
+  color: #b04f17;
+}
+
 .confetti-layer {
   position: absolute;
   inset: 0;
