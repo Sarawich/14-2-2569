@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เพลง + ความทรงจำของเรา</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Sriracha&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="hero">
+    <p class="hero-tag">Our Memory Mix</p>
+    <h1 id="heroTitle">valentine's day</h1>
+    <p id="heroSubtitle" class="hero-text">วาเลนไทน์นี้ ไม่มีรูปก็ยังจำได้ เพราะเพลงเดิมพาเราย้อนกลับไปหาเธอเสมอ</p>
+    <div class="theme-switch" aria-label="theme switcher">
+      <span class="theme-label">โหมด:</span>
+      <button id="themeSweetBtn" type="button" class="theme-chip active">valentine</button>
+      <button id="themePlayfulBtn" type="button" class="theme-chip">capybara</button>
+    </div>
+    <div class="music-panel">
+      <h2>เลือกเพลงของเรา</h2>
+      <p id="nowPlaying" class="now-playing">กำลังเล่น: ยังไม่ได้เลือกเพลง</p>
+
+      <div id="songButtons" class="song-buttons">
+        <button type="button" class="song-btn" data-song-index="0">เพลงที่ 1</button>
+        <button type="button" class="song-btn" data-song-index="1">เพลงที่ 2</button>
+        <button type="button" class="song-btn" data-song-index="2">เพลงที่ 3</button>
+      </div>
+
+      <div class="player-actions">
+        <button id="playPauseBtn" type="button" class="player-btn">เล่น/พักเพลง</button>
+      </div>
+
+      <audio id="bgMusic" loop preload="none" playsinline></audio>
+      
+    </div>
+  </header>
+
+  <main>
+    <section id="questionSection" class="question-wrap">
+      
+      <p id="questionText" class="question">รักไหม คิดถึงไหม</p>
+      
+
+      <div class="reaction-box">
+        <img
+          id="reactionGif"
+          src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
+          alt="reaction gif"
+        >
+      </div>
+
+      <div id="choiceArea" class="choice-area">
+        <button id="yesBtn" class="choice yes">ใช่</button>
+        <button id="noBtn" class="choice no">ไม่</button>
+      </div>
+    </section>
+
+    <section id="finalSection" class="final-wrap hidden">
+      <h2 id="finalTitle">โอเค สรุปว่า "ใช่"</h2>
+      <p id="finalText">ยอมแล้วนะ ว่ารักและคิดถึงเหมือนกัน</p>
+      <div class="final-media">
+        <img
+          id="finalGif"
+          class="final-gif"
+          src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"
+          alt="แมวกอด"
+        >
+      </div>
+      <button id="replayBtn" class="replay">ย้อนเล่นอีกครั้ง</button>
+      <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+﻿services:
+  - type: web
+    name: valentine-memory-mix
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
