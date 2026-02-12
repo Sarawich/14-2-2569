@@ -16,7 +16,7 @@
       src: "./songs/song1.mp3"
     },
     {
-      title: "เพลงที่ 2: เพลงรก",
+      title: "เพลงที่ 2",
       src: "./songs/song2.mp3"
     },
     {
