@@ -16,7 +16,7 @@
       src: "./songs/song1.mp3"
     },
     {
-      title: "เพลงที่ 2",
+      title: "เพลงที่ 2: เพลงรก",
       src: "./songs/song2.mp3"
     },
     {
@@ -137,6 +137,10 @@ function randomFrom(items) {
   return items[Math.floor(Math.random() * items.length)];
 }
 
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 600px)").matches;
+}
+
 function getCurrentPack() {
   return themePacks[currentTheme] || themePacks.sweet;
 }
@@ -249,18 +253,36 @@ async function togglePlayPause() {
 }
 
 function moveNoButton() {
-  const playful = currentTheme === "playful";
-  const minX = playful ? 8 : 12;
-  const maxX = playful ? 92 : 88;
-  const minY = playful ? 22 : 24;
-  const maxY = playful ? 85 : 82;
+  const mobile = isMobileViewport();
+  const areaRect = choiceAreaEl.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
 
-  const randomX = minX + Math.random() * (maxX - minX);
-  const randomY = minY + Math.random() * (maxY - minY);
+  const minCenterX = Math.max(12 + noRect.width / 2, areaRect.width * (mobile ? 0.52 : 0.2));
+  const maxCenterX = Math.min(areaRect.width - 12 - noRect.width / 2, areaRect.width * 0.9);
+  const minCenterY = Math.max(12 + noRect.height / 2, areaRect.height * (mobile ? 0.48 : 0.3));
+  const maxCenterY = Math.min(areaRect.height - 12 - noRect.height / 2, areaRect.height * 0.84);
+
+  const yesCenterX = yesRect.left - areaRect.left + yesRect.width / 2;
+  const yesCenterY = yesRect.top - areaRect.top + yesRect.height / 2;
+  const safeDistance = mobile ? 84 : 112;
+
+  let targetX = minCenterX;
+  let targetY = minCenterY;
+  for (let i = 0; i < 16; i += 1) {
+    const candidateX = minCenterX + Math.random() * (maxCenterX - minCenterX);
+    const candidateY = minCenterY + Math.random() * (maxCenterY - minCenterY);
+    const distance = Math.hypot(candidateX - yesCenterX, candidateY - yesCenterY);
+    targetX = candidateX;
+    targetY = candidateY;
+    if (distance >= safeDistance) {
+      break;
+    }
+  }
 
   noBtn.classList.add("escaping");
-  noBtn.style.left = `${randomX}%`;
-  noBtn.style.top = `${randomY}%`;
+  noBtn.style.left = `${targetX}px`;
+  noBtn.style.top = `${targetY}px`;
 
   setTimeout(() => {
     noBtn.classList.remove("escaping");
@@ -268,10 +290,18 @@ function moveNoButton() {
 }
 
 function updateButtonScale() {
-  const growthRate = currentTheme === "playful" ? 0.2 : 0.17;
-  const shrinkRate = currentTheme === "playful" ? 0.13 : 0.12;
-  const yesScale = Math.min(1 + noCount * growthRate, 3.6);
-  const noScale = Math.max(1 - noCount * shrinkRate, 0.2);
+  const mobile = isMobileViewport();
+  const growthRate = mobile
+    ? (currentTheme === "playful" ? 0.12 : 0.1)
+    : (currentTheme === "playful" ? 0.2 : 0.17);
+  const shrinkRate = mobile
+    ? (currentTheme === "playful" ? 0.07 : 0.06)
+    : (currentTheme === "playful" ? 0.13 : 0.12);
+  const maxYesScale = mobile ? 2.2 : 3.6;
+  const minNoScale = mobile ? 0.45 : 0.2;
+
+  const yesScale = Math.min(1 + noCount * growthRate, maxYesScale);
+  const noScale = Math.max(1 - noCount * shrinkRate, minNoScale);
 
   yesBtn.style.setProperty("--yes-scale", yesScale.toFixed(2));
   noBtn.style.setProperty("--no-scale", noScale.toFixed(2));
@@ -360,6 +390,7 @@ replayBtn.addEventListener("click", resetFlow);
 
 themeSweetBtn.addEventListener("click", () => setTheme("sweet"));
 themePlayfulBtn.addEventListener("click", () => setTheme("playful"));
+window.addEventListener("resize", updateButtonScale);
 
 noBtn.addEventListener("mouseenter", () => {
   if (noCount >= 1) {
