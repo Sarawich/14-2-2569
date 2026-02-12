@@ -149,10 +149,7 @@ function getCurrentPack() {
 function buildFinalDayNote() {
   const today = new Date();
   const year = today.getFullYear();
-  const isValentinesDay = today.getMonth() === 1 && today.getDate() === 14;
-  return isValentinesDay
-    ? `Happy Valentine's ${year}`
-    : `Happy Valentine's ${year} - with love`;
+  return `Happy Valentine's ${year}`;
 }
 
 function applyProfileText() {
